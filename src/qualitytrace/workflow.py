@@ -20,6 +20,7 @@ from .policies import (
 )
 from .tools import ReadTools, ToolFailure, draft_action, propose_root_causes, publish_corrective_action
 from .agents import draft_corrective_action, investigate_root_causes, triage_case
+from .semantic import SemanticProvider, generate_eight_d_draft
 
 
 class GraphState(TypedDict, total=False):
@@ -32,8 +33,9 @@ class GraphState(TypedDict, total=False):
 class QualityTraceEngine:
     """LangGraph workflow with an explicit local durable checkpoint boundary."""
 
-    def __init__(self, database: Path) -> None:
+    def __init__(self, database: Path, semantic_provider: SemanticProvider | None = None) -> None:
         self.store = CheckpointStore(database)
+        self.semantic_provider = semantic_provider
 
     def _save(self, snapshot: WorkflowSnapshot) -> None:
         self.store.save(snapshot)
@@ -166,7 +168,25 @@ class QualityTraceEngine:
         else:
             snapshot.root_causes = causes
             snapshot.action = draft_corrective_action(case, causes)
-            self._transition(snapshot, "awaiting_action_approval", "root_cause", "形成可核验根因候选和纠正措施草案", [item for cause in causes for item in cause.evidence_ids])
+            snapshot.eight_d_draft, snapshot.semantic_trace = generate_eight_d_draft(
+                case,
+                evidence,
+                causes,
+                snapshot.action,
+                self.semantic_provider,
+            )
+            draft_mode = {
+                "llm": "LLM 结构化草稿已通过 Schema 与证据白名单校验",
+                "fallback": "LLM 失败，已回退到本地结构化草稿",
+                "offline": "使用本地结构化草稿",
+            }[snapshot.semantic_trace.mode]
+            self._transition(
+                snapshot,
+                "awaiting_action_approval",
+                "root_cause",
+                f"形成可核验根因候选和纠正措施草案；{draft_mode}",
+                [item for cause in causes for item in cause.evidence_ids],
+            )
             self._save(snapshot)
         state["snapshot"] = snapshot.model_dump(mode="json")
         return state

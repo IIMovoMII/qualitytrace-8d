@@ -4,8 +4,9 @@
 [![Python：3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab)](requirements.txt)
 [![离线测试](https://github.com/IIMovoMII/qualitytrace-8d/actions/workflows/ci.yml/badge.svg)](https://github.com/IIMovoMII/qualitytrace-8d/actions/workflows/ci.yml)
 [![合成数据](https://img.shields.io/badge/%E6%95%B0%E6%8D%AE-%E5%9B%BA%E5%AE%9A_seed_%E5%90%88%E6%88%90-6f42c1)](docs/DATA_PROVENANCE_AND_SYNTHETIC_GENERATION_20260821.md)
+[![LLM：可选 BYOK](https://img.shields.io/badge/LLM-%E5%8F%AF%E9%80%89_BYOK-8a63d2)](docs/LLM_SEMANTIC_LAYER_20260824.md)
 
-**QualityTrace 8D** 是一套面向制造业来料批次规格偏差的可恢复调查工作流。它把证据收集、对象核对、根因候选、措施审批、工具副作用和有效性复核组织成可回放的状态图，同时把必须由人决定的节点留在流程中。
+**QualityTrace 8D** 是一套面向制造业来料批次规格偏差的可恢复调查工作流。它把证据收集、对象核对、根因候选、结构化 8D 草稿、措施审批、工具副作用和有效性复核组织成可回放的状态图，同时把必须由人决定的节点留在流程中。可选 LiteLLM 语义层只负责整理已经通过规则核验的候选与草稿；无凭据时仍可完全离线运行。
 
 项目解决的重点不是“让模型自动写一份 8D 报告”，而是避免证据不全却继续推进、批次对象串错、工具失败后重复建单，以及未经批准就产生外部副作用。
 
@@ -14,7 +15,7 @@
 - 生成结构化异常卡；
 - 检查批次、规格版本、初检报告和供应商回复是否齐全；
 - 识别证据冲突、错误对象、过期规格和未来证据泄漏；
-- 基于可见证据生成调查计划、根因候选和 8D 草稿；
+- 基于可见证据生成调查计划和根因候选，再由可选 LLM 或本地回退生成结构化 8D 草稿；
 - 保存运行轨迹、暂停原因、人工决定、outbox 和幂等收据；
 - 在工具临时失败后从 checkpoint 恢复。
 
@@ -43,9 +44,25 @@ flowchart TD
 |---|---|---|
 | Triage | 建立异常卡、检查材料和对象 | 确认根因、批准措施 |
 | Investigation | 对比规格、读数和供应商回复，生成调查计划与候选 | 覆盖冲突、猜测缺失事实 |
-| Draft | 生成可审阅的纠正措施和 8D 草稿 | 未经批准写入副作用、自动结案 |
+| Draft | 用可选 LLM 将已核验候选整理为结构化 8D 草稿，失败时回退到本地草稿 | 确认根因、批准措施、自动结案 |
 
 三个模块由确定性 LangGraph 状态图调度。它们是工作流中的职责分离，不代表三个可以绕过规则独立行动的生产 Agent。
+
+## 可选 LLM 语义层
+
+LLM 接入采用 BYOK，不改变离线基线。模型只能看到当前 case 的合成字段、可见 EvidenceUnit、已经由代码核验的根因候选和整改动作；未来复检证据、凭据和本地数据库不会进入请求。
+
+```powershell
+$env:QUALITYTRACE_LLM_MODEL = "openai/your-model"
+$env:QUALITYTRACE_LLM_API_BASE = "https://example.invalid/v1"
+$env:QUALITYTRACE_LLM_API_KEY = "<your-key>"
+$env:QUALITYTRACE_LLM_RESPONSE_MODE = "json_schema"
+.\run_project.ps1 llm-demo
+```
+
+`QUALITYTRACE_LLM_RESPONSE_MODE` 支持 `json_schema`、`json_object` 和 `prompt_only`。返回内容必须通过 `EightDDraftPayload` Pydantic Schema、case ID、证据白名单和人工权限状态检查。接口错误、超时、非 JSON、Schema 不合格、引用不可见证据或越过人工确认边界时只调用一次并立即回退；trace 只保存模式、错误类别和输入/输出 hash，不保存 API Key、Base URL、Prompt 或证据正文。
+
+可选依赖由 `requirements-llm.txt` 管理；普通 `demo`、`acceptance` 和 CI 不安装 LiteLLM，也不请求任何 Provider。详细设计见 [LLM 语义层与失败回退](docs/LLM_SEMANTIC_LAYER_20260824.md)。
 
 ## 快速开始
 
@@ -103,13 +120,14 @@ $env:PYTHONPATH = (Join-Path (Get-Location) 'src')
 - **证据冲突**：进入 `blocked`；
 - **对象不一致**：进入 `blocked`；
 - **只读工具临时失败**：有限重试后从 checkpoint 继续；
+- **LLM 接口或结构化输出失败**：单次尝试后回退到本地 8D 草稿，业务状态和人工门禁不变；
 - **未经授权的措施**：不进入 outbox；
 - **重复提交**：返回同一幂等收据；
 - **有效性证据不足**：不能关闭 case。
 
 ## 验证记录
 
-当前 provider-free 离线套件为 `13 passed`，覆盖五条业务路径、生成确定性、manifest hash、规则引用、受控变体隔离、未授权审批、初检/复检样本不足、未来证据隔离、outbox、幂等与工具失败恢复。
+当前 provider-free 离线套件为 `19 passed`：原 13 项覆盖五条业务路径、生成确定性、manifest hash、规则引用、受控变体隔离、未授权审批、初检/复检样本不足、未来证据隔离、outbox、幂等与工具失败恢复；新增 6 项覆盖结构化 LLM 成功路径、非 JSON、接口失败、证据越界、权限越界和 LiteLLM JSON Schema 请求合同。测试使用 fake provider，不请求真实模型。
 
 ```powershell
 $env:PYTHONPATH = (Join-Path (Get-Location) 'src')
@@ -127,7 +145,7 @@ QualityTrace 自行实现 8D 状态门禁、证据可见性、SQLite 审计轨�
 ## 项目结构
 
 ```text
-src/qualitytrace/       Schema、政策、工具、持久化、状态图和验收
+src/qualitytrace/       Schema、政策、工具、持久化、状态图、LLM 语义层和验收
 src/qualitytrace/agents 三类职责模块
 data/policies/          6 份合成内部规则
 data/generated/         5 条路径、3 条历史和 25 份证据
@@ -147,7 +165,7 @@ git add -A
 
 ## 边界
 
-QualityTrace 8D 是个人 POC，不接真实 MES/ERP，不代表真实工厂、客户、生产部署或效率收益。当前实现使用本地 LangGraph + SQLite，不部署 Temporal 服务，也不让模型替代质量负责人的正式决定。
+QualityTrace 8D 是个人 POC，不接真实 MES/ERP，不代表真实工厂、客户、生产部署或效率收益。当前实现使用本地 LangGraph + SQLite，并提供可选 LiteLLM BYOK 语义层；离线测试验证了适配合同和失败回退，但未把 fake provider 结果表述为真实模型运行。模型不能替代质量负责人的正式决定。
 
 ## License
 

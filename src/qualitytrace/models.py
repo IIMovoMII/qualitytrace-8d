@@ -60,6 +60,57 @@ class CorrectiveAction(BaseModel):
     approval_required: bool = True
 
 
+class EightDSection(BaseModel):
+    """One evidence-bound section in the AI-assisted 8D draft."""
+
+    model_config = ConfigDict(extra="forbid")
+    text: str = Field(min_length=1, max_length=2000)
+    evidence_ids: list[str] = Field(default_factory=list)
+    status: Literal["draft", "pending_human_confirmation"] = "draft"
+
+
+class EightDDraftPayload(BaseModel):
+    """Provider-facing structured output; authority remains outside the model."""
+
+    model_config = ConfigDict(extra="forbid")
+    schema_version: Literal["1.0"] = "1.0"
+    case_id: str
+    d0_prepare: EightDSection
+    d1_team: EightDSection
+    d2_problem: EightDSection
+    d3_containment: EightDSection
+    d4_root_cause: EightDSection
+    d5_corrective_action: EightDSection
+    d6_validation: EightDSection
+    d7_prevention: EightDSection
+    d8_closure: EightDSection
+
+
+class EightDDraft(EightDDraftPayload):
+    origin: Literal["llm", "offline", "fallback"]
+
+
+class SemanticTrace(BaseModel):
+    """Audit metadata only; prompts, evidence text, URLs and credentials are omitted."""
+
+    model_config = ConfigDict(extra="forbid")
+    mode: Literal["offline", "llm", "fallback"] = "offline"
+    provider: str | None = None
+    model_alias: str | None = None
+    attempts: int = 0
+    fallback_reason: Literal[
+        "configuration_error",
+        "provider_error",
+        "malformed_json",
+        "schema_validation",
+        "case_mismatch",
+        "evidence_violation",
+        "authority_violation",
+    ] | None = None
+    prompt_sha256: str | None = None
+    output_sha256: str | None = None
+
+
 class HumanDecision(BaseModel):
     decision_id: str
     case_id: str
@@ -132,6 +183,8 @@ class WorkflowSnapshot(BaseModel):
     conflict_ids: list[str] = Field(default_factory=list)
     root_causes: list[CandidateRootCause] = Field(default_factory=list)
     action: CorrectiveAction | None = None
+    eight_d_draft: EightDDraft | None = None
+    semantic_trace: SemanticTrace = Field(default_factory=SemanticTrace)
     pending_decision_id: str | None = None
     decisions: list[HumanDecision] = Field(default_factory=list)
     receipt: ActionReceipt | None = None

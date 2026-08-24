@@ -4,7 +4,7 @@
 
 来料检验发现关键规格偏差后，质量人员通常要在批次记录、规格版本、检验报告和供应商回复之间来回核对。真正危险的是：证据不全却先推进、对象串错、网络/工具失败后重复建单，以及措施没有经过授权就写进外部系统。
 
-QualityTrace 8D 把这条链路做成一个有限状态工作流：每一步都有输入、输出、证据 ID 和可恢复的 checkpoint；模型可以帮助整理候选根因和措施草案，但不能替代证据门禁和人工决定。
+QualityTrace 8D 把这条链路做成一个有限状态工作流：每一步都有输入、输出、证据 ID 和可恢复的 checkpoint。当前已接入可选 LiteLLM 语义层，将代码核验后的候选根因和整改动作整理为结构化 8D 草稿；模型不能替代证据门禁和人工决定，接口或结构化输出失败时回退到本地草稿。
 
 ## 8D 对应关系
 
@@ -17,6 +17,12 @@ QualityTrace 8D 把这条链路做成一个有限状态工作流：每一步都�
 | D5/D6 | 生成人工可审的纠正措施，并登记 owner/due_days |
 | D7 | 等待复检证据并由质量负责人确认有效性 |
 | D8 | 留下完整 trace，进入 `closed` |
+
+## 可选 LLM 语义层
+
+`src/qualitytrace/semantic.py` 提供 BYOK LiteLLM 适配和 `EightDDraftPayload` 结构化输出。LLM 只接收当前可见的合成证据、代码已核验的候选根因和纠正措施；每个关键段落都要绑定 evidence ID，根因、整改和结案保持 `pending_human_confirmation`。
+
+返回结果依次通过 JSON 提取、Pydantic Schema、case ID、证据白名单和权限状态检查。Provider 错误、非 JSON、Schema 失败、证据越界或权限越界只调用一次并回退；工作流状态、审批和 outbox 不因模型失败而改变。`SemanticTrace` 只保存模式、失败类别和 hash，不保存 Key、Base URL、Prompt 或证据正文。完整边界见 `LLM_SEMANTIC_LAYER_20260824.md`。
 
 ## 为什么用 LangGraph + SQLite
 
@@ -32,11 +38,18 @@ LangGraph 负责把节点和条件路由显式化；本地 SQLite 负责保存�
 
 ## 成品验收
 
-五条路径均有独立 fixture 和测试：完整路径最终关闭；缺件路径停在 `awaiting_evidence`；冲突和对象不一致进入 `blocked`；工具临时失败按最多两次只读重试后继续。新增测试还覆盖生成确定性、hash、规则引用、变体隔离、未授权审批、初检样本不足、复检样本不足和未来证据隔离。当前离线套件为 `13 passed`。QualityTrace 不读取 Minos Bench，不共享 EvidenceGate 的 corpus/索引，也不使用 Judge 分数。
+五条路径均有独立 fixture 和测试：完整路径最终关闭；缺件路径停在 `awaiting_evidence`；冲突和对象不一致进入 `blocked`；工具临时失败按最多两次只读重试后继续。测试还覆盖生成确定性、hash、规则引用、变体隔离、未授权审批、初检/复检样本不足、未来证据隔离，以及 LLM 结构化成功、非 JSON、Provider 异常、证据越界、权限越界和 JSON Schema 请求合同。当前 provider-free 离线套件为 `19 passed`；语义层使用 fake provider，不代表真实模型兼容性已经验证。QualityTrace 不读取 Minos Bench，不共享 EvidenceGate 的 corpus/索引，也不使用 Judge 分数。
 
 ## 2026-08-24 公开发布
 
 - 公开仓库：`https://github.com/IIMovoMII/qualitytrace-8d`，public，MIT License。
-- 公开候选共 `68` 个受控文件；`.env`、虚拟环境、SQLite、trace、outbox 运行工件和归档材料均未进入 Git。
-- 全部 `13` 项 provider-free 测试、一键 acceptance、生成数据 hash 核验和公开提交安全审计均通过。
+- 初始公开版为 `68` 个受控文件；本次语义层增量新增 4 个受控文件，合计 `72` 个。`.env`、虚拟环境、SQLite、trace、outbox 运行工件和归档材料均未进入 Git。
+- 全部 `19` 项 provider-free 测试、一键 acceptance、生成数据 hash 核验和公开提交安全审计均通过。
 - GitHub Actions“离线测试与安全审计”已通过。公开 README 按真实问题、状态图、快速开始、数据、失败安全、验证和方法边界组织。
+
+## 2026-08-24 LLM 语义层增量
+
+- 新增可选 LiteLLM BYOK 适配、D0-D8 Pydantic 结构化草稿和三种 response mode；
+- 新增 case/evidence/authority 三类输出门禁与本地 fallback；
+- 新增 6 项 provider-free 定向测试，完整离线套件更新为 `19 passed`；
+- 普通演示和 CI 保持离线，真实 Provider 探针未执行，因此不发布模型质量或接口兼容性结论。

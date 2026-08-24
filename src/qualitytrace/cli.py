@@ -8,6 +8,7 @@ from .checks import run_acceptance
 from .data_factory import generate_dataset, validate_persisted_dataset
 from .fixtures import make_case
 from .models import HumanDecision
+from .semantic import SemanticDraftError, provider_from_env
 from .workflow import QualityTraceEngine
 
 
@@ -16,13 +17,21 @@ ARTIFACTS = ROOT / "artifacts"
 DB = ARTIFACTS / "demo.sqlite"
 
 
-def demo() -> None:
+def demo(*, use_llm: bool = False) -> None:
     if DB.exists():
         DB.unlink()
     case = make_case("complete")
-    engine = QualityTraceEngine(DB)
+    provider = provider_from_env() if use_llm else None
+    engine = QualityTraceEngine(DB, semantic_provider=provider)
     first = engine.start(case)
-    print(json.dumps({"step": "initial", "status": first.snapshot.status, "pending": first.snapshot.pending_decision_id}, ensure_ascii=False, indent=2))
+    print(json.dumps({
+        "step": "initial",
+        "status": first.snapshot.status,
+        "pending": first.snapshot.pending_decision_id,
+        "semantic_mode": first.snapshot.semantic_trace.mode,
+        "fallback_reason": first.snapshot.semantic_trace.fallback_reason,
+        "eight_d_schema": first.snapshot.eight_d_draft.schema_version if first.snapshot.eight_d_draft else None,
+    }, ensure_ascii=False, indent=2))
     second = engine.resume(case, HumanDecision(
         decision_id="DEC-DEMO-ACTION", case_id=case.case_id, decision_type="approve_action",
         actor_role="quality_manager", decision="approved", reason="批准隔离和换型验证", action_version=1,
@@ -38,7 +47,7 @@ def demo() -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="QualityTrace 8D 本地成品入口")
-    parser.add_argument("command", choices=("demo", "acceptance", "run", "generate-data", "check-data"))
+    parser.add_argument("command", choices=("demo", "llm-demo", "acceptance", "run", "generate-data", "check-data"))
     args = parser.parse_args()
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
     if args.command == "generate-data":
@@ -48,8 +57,12 @@ def main() -> int:
         result = validate_persisted_dataset(ROOT)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0 if result["valid"] else 1
-    if args.command == "demo":
-        demo()
+    if args.command in {"demo", "llm-demo"}:
+        try:
+            demo(use_llm=args.command == "llm-demo")
+        except SemanticDraftError as error:
+            print(json.dumps({"error": "llm_configuration_error", "detail": str(error)}, ensure_ascii=False, indent=2))
+            return 2
         return 0
     if args.command == "acceptance":
         report = run_acceptance(ARTIFACTS / "acceptance_report.json")

@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('demo','acceptance','run','generate-data','check-data')]
+    [ValidateSet('demo','llm-demo','acceptance','run','generate-data','check-data')]
     [string]$Command = 'acceptance'
 )
 $ErrorActionPreference = 'Stop'
@@ -23,6 +23,13 @@ if (-not (Test-Path -LiteralPath $python)) {
     if (-not $created) { throw 'Unable to create .venv. Install Python 3.11 or newer first.' }
     & $python -m pip install --disable-pip-version-check -r (Join-Path $root 'requirements.txt')
     if ($LASTEXITCODE -ne 0) { throw 'Failed to install QualityTrace dependencies.' }
+}
+if ($Command -eq 'llm-demo') {
+    & $python -c 'import litellm' 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        & $python -m pip install --disable-pip-version-check -r (Join-Path $root 'requirements-llm.txt')
+        if ($LASTEXITCODE -ne 0) { throw 'Failed to install optional QualityTrace LLM dependencies.' }
+    }
 }
 $env:PYTHONPATH = Join-Path $root 'src'
 & $python -m qualitytrace.cli $Command
