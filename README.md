@@ -117,6 +117,13 @@ $env:PYTHONPATH = (Join-Path (Get-Location) 'src')
 .\run_project.ps1 acceptance
 ```
 
+## 参考项目与实际改造范围
+
+- [LangGraph](https://github.com/langchain-ai/langgraph) 提供状态图与 checkpoint 编排底座。
+- [ERPNext](https://github.com/frappe/erpnext) 用于参考质量对象和字段关系；[DataFlow](https://github.com/OpenDCAI/DataFlow) 与 [SDV](https://github.com/sdv-dev/SDV) 用于参考合成数据的生成、过滤、约束和元数据方法。
+
+QualityTrace 自行实现 8D 状态门禁、证据可见性、SQLite 审计轨迹、人工审批、outbox、幂等收据和五条受控路径。仓库没有复制参考项目的业务数据或案例；全部规则、异常记录和证据文件均为可追溯的原创合成内容。
+
 ## 项目结构
 
 ```text

@@ -33,3 +33,10 @@ LangGraph 负责把节点和条件路由显式化；本地 SQLite 负责保存�
 ## 成品验收
 
 五条路径均有独立 fixture 和测试：完整路径最终关闭；缺件路径停在 `awaiting_evidence`；冲突和对象不一致进入 `blocked`；工具临时失败按最多两次只读重试后继续。新增测试还覆盖生成确定性、hash、规则引用、变体隔离、未授权审批、初检样本不足、复检样本不足和未来证据隔离。当前离线套件为 `13 passed`。QualityTrace 不读取 Minos Bench，不共享 EvidenceGate 的 corpus/索引，也不使用 Judge 分数。
+
+## 2026-08-24 公开发布
+
+- 公开仓库：`https://github.com/IIMovoMII/qualitytrace-8d`，public，MIT License。
+- 公开候选共 `68` 个受控文件；`.env`、虚拟环境、SQLite、trace、outbox 运行工件和归档材料均未进入 Git。
+- 全部 `13` 项 provider-free 测试、一键 acceptance、生成数据 hash 核验和公开提交安全审计均通过。
+- GitHub Actions“离线测试与安全审计”已通过。公开 README 按真实问题、状态图、快速开始、数据、失败安全、验证和方法边界组织。
