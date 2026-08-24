@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "policy_set_id": "QT-POLICY-DEMO-20260821-A",
+  "origin": "synthetic_internal_policy",
+  "not_real_company_policy": true,
+  "policies": [
+    {
+      "policy_id": "QT-POL-001",
+      "title": "来料检验与规格判定规则",
+      "version": "1.0",
+      "file": "policies/QT-POL-001_incoming_inspection.md"
+    },
+    {
+      "policy_id": "QT-POL-002",
+      "title": "规格版本切换与适用范围规则",
+      "version": "1.0",
+      "file": "policies/QT-POL-002_spec_change_control.md"
+    },
+    {
+      "policy_id": "QT-POL-003",
+      "title": "不合格批次隔离与对象边界规则",
+      "version": "1.0",
+      "file": "policies/QT-POL-003_nonconformance_containment.md"
+    },
+    {
+      "policy_id": "QT-POL-004",
+      "title": "供应商纠正措施资料规则",
+      "version": "1.0",
+      "file": "policies/QT-POL-004_supplier_corrective_action.md"
+    },
+    {
+      "policy_id": "QT-POL-005",
+      "title": "质量工作流审批权限矩阵",
+      "version": "1.0",
+      "file": "policies/QT-POL-005_approval_matrix.md"
+    },
+    {
+      "policy_id": "QT-POL-006",
+      "title": "8D 有效性验证与结案规则",
+      "version": "1.0",
+      "file": "policies/QT-POL-006_effectiveness_and_closure.md"
+    }
+  ],
+  "workflow_rules": {
+    "required_evidence_ids": [
+      "EV-BATCH",
+      "EV-SPEC",
+      "EV-INSPECTION",
+      "EV-SUPPLIER"
+    ],
+    "required_evidence_kinds": [
+      "batch",
+      "specification",
+      "inspection",
+      "supplier_response"
+    ],
+    "action_approval_roles": [
+      "quality_manager"
+    ],
+    "effectiveness_approval_roles": [
+      "quality_manager"
+    ],
+    "supplier_response_sla_hours": 48,
+    "corrective_action_due_days": 2,
+    "minimum_initial_sample_size": 5,
+    "minimum_effectiveness_sample_size": 5,
+    "maximum_effectiveness_out_of_spec": 0,
+    "reject_if_any_initial_out_of_spec": true,
+    "block_on_conflict": true,
+    "block_on_object_mismatch": true
+  }
+}

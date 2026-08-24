@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-08-21",
+  "decision": "public methods and schemas inform an original synthetic dataset; no upstream record is copied as enterprise data",
+  "github_sources": [
+    {
+      "source_id": "GH-ERPNEXT",
+      "repository": "frappe/erpnext",
+      "url": "https://github.com/frappe/erpnext",
+      "revision": "275844d49654688b2323bd6b5273f13546a154a6",
+      "license": "GPL-3.0",
+      "snapshot_signal": "38329 stars / 12546 forks",
+      "inspected_paths": [
+        "erpnext/stock/doctype/quality_inspection/quality_inspection.json",
+        "erpnext/stock/doctype/quality_inspection_reading/quality_inspection_reading.json",
+        "erpnext/quality_management/doctype/non_conformance/non_conformance.json",
+        "erpnext/quality_management/doctype/quality_action/quality_action.json",
+        "erpnext/quality_management/doctype/quality_action_resolution/quality_action_resolution.json",
+        "erpnext/stock/doctype/quality_inspection/test_quality_inspection.py"
+      ],
+      "used_for": "inspection, batch/reference, sample size, specification bounds, readings, status, verifier, nonconformance and corrective-action field relationships",
+      "copy_boundary": "schema relationships only; no source code or records copied"
+    },
+    {
+      "source_id": "GH-DATAFLOW",
+      "repository": "OpenDCAI/DataFlow",
+      "url": "https://github.com/OpenDCAI/DataFlow",
+      "revision": "d1057ebb0b6ea99eb98f2e9d28aeedcaafdb8caf",
+      "license": "Apache-2.0",
+      "snapshot_signal": "7632 stars / 1042 forks",
+      "inspected_paths": [
+        "dataflow/statics/pipelines/api_pipelines/text_sft_synthesis_pipeline.py",
+        "dataflow/operators/text_sft/generate/sft_generator_from_seed.py",
+        "dataflow/operators/general_text/filter/rule_based_filter.py"
+      ],
+      "used_for": "separate generation, refinement/normalization, deterministic filtering and persisted pipeline stages",
+      "copy_boundary": "pipeline pattern only; QualityTrace uses a small standard-library generator"
+    },
+    {
+      "source_id": "GH-SDV",
+      "repository": "sdv-dev/SDV",
+      "url": "https://github.com/sdv-dev/SDV",
+      "revision": "e43540f2a7b205d21974c7f2f93764d355b74ebb",
+      "license": "Business Source License",
+      "snapshot_signal": "3548 stars / 419 forks",
+      "inspected_paths": [
+        "README.md",
+        "sdv/metadata/single_table.py",
+        "sdv/constraints/tabular.py"
+      ],
+      "used_for": "explicit metadata, key constraints, business constraints and post-generation validation",
+      "copy_boundary": "method only; SDV is not a dependency and no licensed code is copied"
+    },
+    {
+      "source_id": "GH-FAKER",
+      "repository": "joke2k/faker",
+      "url": "https://github.com/joke2k/faker",
+      "revision": "f33e820a5237384c43718f2ec0bf60d82014db12",
+      "license": "MIT",
+      "snapshot_signal": "19370 stars / 2110 forks",
+      "inspected_paths": [
+        "README.rst"
+      ],
+      "used_for": "seeded repeatability, fictional identifiers and uniqueness concepts",
+      "copy_boundary": "not installed because the dataset needs no personal-data providers"
+    },
+    {
+      "source_id": "GH-AWS-MFG-SYNTH",
+      "repository": "aws-samples/amazon-bedrock-synthetic-manufacturing-data-generator",
+      "url": "https://github.com/aws-samples/amazon-bedrock-synthetic-manufacturing-data-generator",
+      "revision": "2819d5aca70c9bf79633374fe58e2451be94b894",
+      "license": "MIT-0",
+      "snapshot_signal": "14 stars / 2 forks",
+      "inspected_paths": [
+        "README.md"
+      ],
+      "used_for": "manufacturing-specific example of timestamped signals and deliberate anomaly injection",
+      "copy_boundary": "supporting example only because adoption is low; no architecture decision comes from it"
+    }
+  ],
+  "xiaohongshu_sources": [
+    {
+      "source_id": "XHS-8D-AI-WORKFLOW",
+      "note_id": "6a69aaea000000001102c84a",
+      "title": "质量工程师的 AI 实操：8D 报告20 min 搞定",
+      "author": "质量姐看出海",
+      "published_at": "2026-07-29",
+      "url": "https://www.xiaohongshu.com/explore/6a69aaea000000001102c84a",
+      "used_for": "input boundary: problem description, 5M1E findings, measurement comparison and human-confirmed conclusion; AI drafts while people verify numbers and actions"
+    },
+    {
+      "source_id": "XHS-TOOL-TRAJECTORY",
+      "note_id": "6a05c0c80000000008026fd1",
+      "title": "Agent 工具轨迹数据怎么构造？",
+      "author": "Sizhou说",
+      "published_at": "2026-05-14",
+      "url": "https://www.xiaohongshu.com/explore/6a05c0c80000000008026fd1",
+      "used_for": "trajectory fields include goal, tool, arguments, result, final output, failure examples and no-tool cases"
+    },
+    {
+      "source_id": "XHS-DATAFLOW",
+      "note_id": "69451772000000001e033c6a",
+      "title": "DataFlow: 把大模型‘造数据’做成一个系统",
+      "author": "PKU-DCAI",
+      "url": "https://www.xiaohongshu.com/explore/69451772000000001e033c6a",
+      "used_for": "operatorized generate-evaluate-filter-refine pipeline; cross-checked against the GitHub source"
+    },
+    {
+      "source_id": "XHS-SYNTH-PITFALL",
+      "note_id": "6a857a6d000000003300a590",
+      "title": "（小踩坑）Kaggle 代码做轨迹数据合成",
+      "author": "Ben",
+      "published_at": "2026-08-19",
+      "url": "https://www.xiaohongshu.com/explore/6a857a6d000000003300a590",
+      "used_for": "do not backfill a fake trajectory from a finished answer; derive variants from an executable base and preserve failures"
+    },
+    {
+      "source_id": "XHS-DATA-QUALITY",
+      "note_id": "6a86e4b40000000028008bd4",
+      "title": "FDE-从数据标注到Agent交付",
+      "author": "半路FDE",
+      "url": "https://www.xiaohongshu.com/explore/6a86e4b40000000028008bd4",
+      "used_for": "practitioner signal that agent delivery failures can originate in data quality"
+    }
+  ],
+  "evidence_levels": {
+    "github_source": "engineering evidence after README, source, tests, license and maintenance inspection",
+    "xiaohongshu_note": "practitioner signal only; not an enterprise policy or measured result",
+    "local_policy": "original synthetic rule written for this POC and clearly labeled"
+  }
+}

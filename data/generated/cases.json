@@ -1,0 +1,649 @@
+{
+  "cases": {
+    "complete": {
+      "case_id": "QT-COMPLETE-001",
+      "data_origin": "synthetic_demo",
+      "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+      "detection_stage": "incoming_inspection",
+      "evidence": [
+        {
+          "attributes": {
+            "lot_id": "LOT-20260821-A",
+            "receipt_date": "2026-08-21",
+            "site_id": "SITE-DEMO-01",
+            "supplier_id": "SUP-DEMO-017",
+            "synthetic": true
+          },
+          "evidence_id": "EV-BATCH",
+          "kind": "batch",
+          "observed_at": "2026-08-21T08:30:00+08:00",
+          "policy_refs": [
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-COMPLETE-001/batch_record.json",
+          "text": "合成批次 LOT-20260821-A，供应商 SUP-DEMO-017，产品 精密连接器（合成），于 2026-08-21 进入来料检验。"
+        },
+        {
+          "attributes": {
+            "effective_date": "2026-08-01",
+            "lower": 9.95,
+            "required": 10.0,
+            "revision": "REV-7",
+            "tolerance": 0.05,
+            "unit": "mm",
+            "upper": 10.05
+          },
+          "evidence_id": "EV-SPEC",
+          "kind": "specification",
+          "observed_at": "2026-08-01T00:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-002"
+          ],
+          "source": "data/generated/evidence/QT-COMPLETE-001/spec_rev_7.md",
+          "text": "# 合成规格 REV-7  - 产品：精密连接器（合成） - 参数：针脚长度 - 名义值：10.00 mm - 公差：±0.05 mm - 合格范围：9.95–10.05 mm - 生效日期：2026-08-01 - 超出公差时不得直接放行。 - 本文件为 QualityTrace 8D 合成资料，不是真实企业规格。"
+        },
+        {
+          "attributes": {
+            "calibration_valid_until": "2026-09-30",
+            "equipment_id": "CMM-DEMO-03",
+            "measured": 10.15,
+            "out_of_spec": 2,
+            "readings": [
+              9.97,
+              10.03,
+              10.14,
+              10.15,
+              10.03
+            ],
+            "sample_size": 5,
+            "unit": "mm"
+          },
+          "evidence_id": "EV-INSPECTION",
+          "kind": "inspection",
+          "observed_at": "2026-08-21T10:15:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-COMPLETE-001/inspection_report.csv",
+          "text": "合成来料检验共抽检 5 件，读数为 9.97, 10.03, 10.14, 10.15, 10.03 mm；其中 2 件超出 9.95–10.05 mm。设备 CMM-DEMO-03 的合成校准有效期至 2026-09-30。"
+        },
+        {
+          "attributes": {
+            "claim_status": "unverified_supplier_statement",
+            "lot_id": "LOT-20260821-A",
+            "response_sla_hours": 48,
+            "target_revision": "REV-7",
+            "tooling_revision": "REV-6"
+          },
+          "evidence_id": "EV-SUPPLIER",
+          "kind": "supplier_response",
+          "observed_at": "2026-08-21T15:20:00+08:00",
+          "policy_refs": [
+            "QT-POL-002",
+            "QT-POL-004"
+          ],
+          "source": "data/generated/evidence/QT-COMPLETE-001/supplier_reply.txt",
+          "text": "合成供应商回复：LOT-20260821-A 仍沿用 REV-6 工装，尚未完成 REV-7 切换；将在 48 小时内补充纠正措施。"
+        },
+        {
+          "attributes": {
+            "equipment_id": "CMM-DEMO-03",
+            "lot_id": "LOT-20260821-A",
+            "out_of_spec": 0,
+            "readings": [
+              10.01,
+              10.0,
+              9.99,
+              9.98,
+              10.0
+            ],
+            "sample_size": 5,
+            "spec_revision": "REV-7",
+            "unit": "mm"
+          },
+          "evidence_id": "EV-EFFECTIVENESS",
+          "kind": "effectiveness",
+          "observed_at": "2026-08-24T14:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-006"
+          ],
+          "source": "data/generated/evidence/QT-COMPLETE-001/reinspection_report.csv",
+          "text": "合成纠正后复检共 5 件，读数为 10.01, 10.00, 9.99, 9.98, 10.00 mm；超规格 0 件。"
+        }
+      ],
+      "flags": {
+        "expected_status_after_first_run": "awaiting_action_approval"
+      },
+      "generator_version": "1.0.0",
+      "lot_id": "LOT-20260821-A",
+      "measured_value": 10.15,
+      "product": "精密连接器（合成）",
+      "required_value": 10.0,
+      "scenario": "inbound_spec_deviation",
+      "spec_name": "针脚长度",
+      "supplier_id": "SUP-DEMO-017",
+      "unit": "mm"
+    },
+    "conflict": {
+      "case_id": "QT-CONFLICT-001",
+      "data_origin": "synthetic_demo",
+      "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+      "detection_stage": "incoming_inspection",
+      "evidence": [
+        {
+          "attributes": {
+            "lot_id": "LOT-20260821-A",
+            "receipt_date": "2026-08-21",
+            "site_id": "SITE-DEMO-01",
+            "supplier_id": "SUP-DEMO-017",
+            "synthetic": true
+          },
+          "evidence_id": "EV-BATCH",
+          "kind": "batch",
+          "observed_at": "2026-08-21T08:30:00+08:00",
+          "policy_refs": [
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-CONFLICT-001/batch_record.json",
+          "text": "合成批次 LOT-20260821-A，供应商 SUP-DEMO-017，产品 精密连接器（合成），于 2026-08-21 进入来料检验。"
+        },
+        {
+          "attributes": {
+            "effective_date": "2026-08-01",
+            "lower": 9.95,
+            "required": 10.0,
+            "revision": "REV-7",
+            "tolerance": 0.05,
+            "unit": "mm",
+            "upper": 10.05
+          },
+          "evidence_id": "EV-SPEC",
+          "kind": "specification",
+          "observed_at": "2026-08-01T00:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-002"
+          ],
+          "source": "data/generated/evidence/QT-CONFLICT-001/spec_rev_7.md",
+          "text": "# 合成规格 REV-7  - 产品：精密连接器（合成） - 参数：针脚长度 - 名义值：10.00 mm - 公差：±0.05 mm - 合格范围：9.95–10.05 mm - 生效日期：2026-08-01 - 超出公差时不得直接放行。 - 本文件为 QualityTrace 8D 合成资料，不是真实企业规格。"
+        },
+        {
+          "attributes": {
+            "calibration_valid_until": "2026-09-30",
+            "equipment_id": "CMM-DEMO-03",
+            "measured": 10.15,
+            "out_of_spec": 2,
+            "readings": [
+              9.97,
+              10.03,
+              10.14,
+              10.15,
+              10.03
+            ],
+            "sample_size": 5,
+            "unit": "mm"
+          },
+          "evidence_id": "EV-INSPECTION",
+          "kind": "inspection",
+          "observed_at": "2026-08-21T10:15:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-CONFLICT-001/inspection_report.csv",
+          "text": "合成来料检验共抽检 5 件，读数为 9.97, 10.03, 10.14, 10.15, 10.03 mm；其中 2 件超出 9.95–10.05 mm。设备 CMM-DEMO-03 的合成校准有效期至 2026-09-30。"
+        },
+        {
+          "attributes": {
+            "claim_status": "unverified_supplier_statement",
+            "lot_id": "LOT-20260821-A",
+            "response_sla_hours": 48,
+            "target_revision": "REV-7",
+            "tooling_revision": "REV-6"
+          },
+          "evidence_id": "EV-SUPPLIER",
+          "kind": "supplier_response",
+          "observed_at": "2026-08-21T15:20:00+08:00",
+          "policy_refs": [
+            "QT-POL-002",
+            "QT-POL-004"
+          ],
+          "source": "data/generated/evidence/QT-CONFLICT-001/supplier_reply.txt",
+          "text": "合成供应商回复：LOT-20260821-A 仍沿用 REV-6 工装，尚未完成 REV-7 切换；将在 48 小时内补充纠正措施。"
+        },
+        {
+          "attributes": {
+            "equipment_id": "CMM-DEMO-03",
+            "lot_id": "LOT-20260821-A",
+            "out_of_spec": 0,
+            "readings": [
+              10.01,
+              10.0,
+              9.99,
+              9.98,
+              10.0
+            ],
+            "sample_size": 5,
+            "spec_revision": "REV-7",
+            "unit": "mm"
+          },
+          "evidence_id": "EV-EFFECTIVENESS",
+          "kind": "effectiveness",
+          "observed_at": "2026-08-24T14:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-006"
+          ],
+          "source": "data/generated/evidence/QT-CONFLICT-001/reinspection_report.csv",
+          "text": "合成纠正后复检共 5 件，读数为 10.01, 10.00, 9.99, 9.98, 10.00 mm；超规格 0 件。"
+        },
+        {
+          "attributes": {
+            "claim_status": "unverified_supplier_statement",
+            "conflicts_with": "EV-SUPPLIER",
+            "lot_id": "LOT-20260821-A",
+            "tooling_revision": "REV-7"
+          },
+          "evidence_id": "EV-CONFLICT",
+          "kind": "supplier_response",
+          "observed_at": "2026-08-21T16:05:00+08:00",
+          "policy_refs": [
+            "QT-POL-002",
+            "QT-POL-004"
+          ],
+          "source": "data/generated/evidence/QT-CONFLICT-001/supplier_reply_v2.txt",
+          "text": "合成供应商第二次回复：LOT-20260821-A 已使用 REV-7 工装。该说法与 EV-SUPPLIER 的 REV-6 工装说法冲突。"
+        }
+      ],
+      "flags": {
+        "conflict_evidence_ids": [
+          "EV-SUPPLIER",
+          "EV-CONFLICT"
+        ],
+        "expected_status_after_first_run": "blocked"
+      },
+      "generator_version": "1.0.0",
+      "lot_id": "LOT-20260821-A",
+      "measured_value": 10.15,
+      "product": "精密连接器（合成）",
+      "required_value": 10.0,
+      "scenario": "inbound_spec_deviation",
+      "spec_name": "针脚长度",
+      "supplier_id": "SUP-DEMO-017",
+      "unit": "mm"
+    },
+    "missing_evidence": {
+      "case_id": "QT-MISSING_EVIDENCE-001",
+      "data_origin": "synthetic_demo",
+      "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+      "detection_stage": "incoming_inspection",
+      "evidence": [
+        {
+          "attributes": {
+            "lot_id": "LOT-20260821-A",
+            "receipt_date": "2026-08-21",
+            "site_id": "SITE-DEMO-01",
+            "supplier_id": "SUP-DEMO-017",
+            "synthetic": true
+          },
+          "evidence_id": "EV-BATCH",
+          "kind": "batch",
+          "observed_at": "2026-08-21T08:30:00+08:00",
+          "policy_refs": [
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-MISSING_EVIDENCE-001/batch_record.json",
+          "text": "合成批次 LOT-20260821-A，供应商 SUP-DEMO-017，产品 精密连接器（合成），于 2026-08-21 进入来料检验。"
+        },
+        {
+          "attributes": {
+            "effective_date": "2026-08-01",
+            "lower": 9.95,
+            "required": 10.0,
+            "revision": "REV-7",
+            "tolerance": 0.05,
+            "unit": "mm",
+            "upper": 10.05
+          },
+          "evidence_id": "EV-SPEC",
+          "kind": "specification",
+          "observed_at": "2026-08-01T00:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-002"
+          ],
+          "source": "data/generated/evidence/QT-MISSING_EVIDENCE-001/spec_rev_7.md",
+          "text": "# 合成规格 REV-7  - 产品：精密连接器（合成） - 参数：针脚长度 - 名义值：10.00 mm - 公差：±0.05 mm - 合格范围：9.95–10.05 mm - 生效日期：2026-08-01 - 超出公差时不得直接放行。 - 本文件为 QualityTrace 8D 合成资料，不是真实企业规格。"
+        },
+        {
+          "attributes": {
+            "calibration_valid_until": "2026-09-30",
+            "equipment_id": "CMM-DEMO-03",
+            "measured": 10.15,
+            "out_of_spec": 2,
+            "readings": [
+              9.97,
+              10.03,
+              10.14,
+              10.15,
+              10.03
+            ],
+            "sample_size": 5,
+            "unit": "mm"
+          },
+          "evidence_id": "EV-INSPECTION",
+          "kind": "inspection",
+          "observed_at": "2026-08-21T10:15:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-MISSING_EVIDENCE-001/inspection_report.csv",
+          "text": "合成来料检验共抽检 5 件，读数为 9.97, 10.03, 10.14, 10.15, 10.03 mm；其中 2 件超出 9.95–10.05 mm。设备 CMM-DEMO-03 的合成校准有效期至 2026-09-30。"
+        },
+        {
+          "attributes": {
+            "equipment_id": "CMM-DEMO-03",
+            "lot_id": "LOT-20260821-A",
+            "out_of_spec": 0,
+            "readings": [
+              10.01,
+              10.0,
+              9.99,
+              9.98,
+              10.0
+            ],
+            "sample_size": 5,
+            "spec_revision": "REV-7",
+            "unit": "mm"
+          },
+          "evidence_id": "EV-EFFECTIVENESS",
+          "kind": "effectiveness",
+          "observed_at": "2026-08-24T14:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-006"
+          ],
+          "source": "data/generated/evidence/QT-MISSING_EVIDENCE-001/reinspection_report.csv",
+          "text": "合成纠正后复检共 5 件，读数为 10.01, 10.00, 9.99, 9.98, 10.00 mm；超规格 0 件。"
+        }
+      ],
+      "flags": {
+        "expected_status_after_first_run": "awaiting_evidence"
+      },
+      "generator_version": "1.0.0",
+      "lot_id": "LOT-20260821-A",
+      "measured_value": 10.15,
+      "product": "精密连接器（合成）",
+      "required_value": 10.0,
+      "scenario": "inbound_spec_deviation",
+      "spec_name": "针脚长度",
+      "supplier_id": "SUP-DEMO-017",
+      "unit": "mm"
+    },
+    "tool_failure_recovery": {
+      "case_id": "QT-TOOL_FAILURE_RECOVERY-001",
+      "data_origin": "synthetic_demo",
+      "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+      "detection_stage": "incoming_inspection",
+      "evidence": [
+        {
+          "attributes": {
+            "lot_id": "LOT-20260821-A",
+            "receipt_date": "2026-08-21",
+            "site_id": "SITE-DEMO-01",
+            "supplier_id": "SUP-DEMO-017",
+            "synthetic": true
+          },
+          "evidence_id": "EV-BATCH",
+          "kind": "batch",
+          "observed_at": "2026-08-21T08:30:00+08:00",
+          "policy_refs": [
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/batch_record.json",
+          "text": "合成批次 LOT-20260821-A，供应商 SUP-DEMO-017，产品 精密连接器（合成），于 2026-08-21 进入来料检验。"
+        },
+        {
+          "attributes": {
+            "effective_date": "2026-08-01",
+            "lower": 9.95,
+            "required": 10.0,
+            "revision": "REV-7",
+            "tolerance": 0.05,
+            "unit": "mm",
+            "upper": 10.05
+          },
+          "evidence_id": "EV-SPEC",
+          "kind": "specification",
+          "observed_at": "2026-08-01T00:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-002"
+          ],
+          "source": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/spec_rev_7.md",
+          "text": "# 合成规格 REV-7  - 产品：精密连接器（合成） - 参数：针脚长度 - 名义值：10.00 mm - 公差：±0.05 mm - 合格范围：9.95–10.05 mm - 生效日期：2026-08-01 - 超出公差时不得直接放行。 - 本文件为 QualityTrace 8D 合成资料，不是真实企业规格。"
+        },
+        {
+          "attributes": {
+            "calibration_valid_until": "2026-09-30",
+            "equipment_id": "CMM-DEMO-03",
+            "measured": 10.15,
+            "out_of_spec": 2,
+            "readings": [
+              9.97,
+              10.03,
+              10.14,
+              10.15,
+              10.03
+            ],
+            "sample_size": 5,
+            "unit": "mm"
+          },
+          "evidence_id": "EV-INSPECTION",
+          "kind": "inspection",
+          "observed_at": "2026-08-21T10:15:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/inspection_report.csv",
+          "text": "合成来料检验共抽检 5 件，读数为 9.97, 10.03, 10.14, 10.15, 10.03 mm；其中 2 件超出 9.95–10.05 mm。设备 CMM-DEMO-03 的合成校准有效期至 2026-09-30。"
+        },
+        {
+          "attributes": {
+            "claim_status": "unverified_supplier_statement",
+            "lot_id": "LOT-20260821-A",
+            "response_sla_hours": 48,
+            "target_revision": "REV-7",
+            "tooling_revision": "REV-6"
+          },
+          "evidence_id": "EV-SUPPLIER",
+          "kind": "supplier_response",
+          "observed_at": "2026-08-21T15:20:00+08:00",
+          "policy_refs": [
+            "QT-POL-002",
+            "QT-POL-004"
+          ],
+          "source": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/supplier_reply.txt",
+          "text": "合成供应商回复：LOT-20260821-A 仍沿用 REV-6 工装，尚未完成 REV-7 切换；将在 48 小时内补充纠正措施。"
+        },
+        {
+          "attributes": {
+            "equipment_id": "CMM-DEMO-03",
+            "lot_id": "LOT-20260821-A",
+            "out_of_spec": 0,
+            "readings": [
+              10.01,
+              10.0,
+              9.99,
+              9.98,
+              10.0
+            ],
+            "sample_size": 5,
+            "spec_revision": "REV-7",
+            "unit": "mm"
+          },
+          "evidence_id": "EV-EFFECTIVENESS",
+          "kind": "effectiveness",
+          "observed_at": "2026-08-24T14:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-006"
+          ],
+          "source": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/reinspection_report.csv",
+          "text": "合成纠正后复检共 5 件，读数为 10.01, 10.00, 9.99, 9.98, 10.00 mm；超规格 0 件。"
+        }
+      ],
+      "flags": {
+        "expected_status_after_first_run": "awaiting_action_approval",
+        "read_tool_failures_before_success": 1
+      },
+      "generator_version": "1.0.0",
+      "lot_id": "LOT-20260821-A",
+      "measured_value": 10.15,
+      "product": "精密连接器（合成）",
+      "required_value": 10.0,
+      "scenario": "inbound_spec_deviation",
+      "spec_name": "针脚长度",
+      "supplier_id": "SUP-DEMO-017",
+      "unit": "mm"
+    },
+    "wrong_object": {
+      "case_id": "QT-WRONG_OBJECT-001",
+      "data_origin": "synthetic_demo",
+      "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+      "detection_stage": "incoming_inspection",
+      "evidence": [
+        {
+          "attributes": {
+            "lot_id": "LOT-DEMO-999",
+            "receipt_date": "2026-08-21",
+            "site_id": "SITE-DEMO-01",
+            "supplier_id": "SUP-DEMO-999",
+            "synthetic": true
+          },
+          "evidence_id": "EV-BATCH",
+          "kind": "batch",
+          "observed_at": "2026-08-21T08:30:00+08:00",
+          "policy_refs": [
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-WRONG_OBJECT-001/batch_record.json",
+          "text": "合成批次 LOT-DEMO-999，供应商 SUP-DEMO-999，产品 精密连接器（合成），于 2026-08-21 进入来料检验。"
+        },
+        {
+          "attributes": {
+            "effective_date": "2026-08-01",
+            "lower": 9.95,
+            "required": 10.0,
+            "revision": "REV-7",
+            "tolerance": 0.05,
+            "unit": "mm",
+            "upper": 10.05
+          },
+          "evidence_id": "EV-SPEC",
+          "kind": "specification",
+          "observed_at": "2026-08-01T00:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-002"
+          ],
+          "source": "data/generated/evidence/QT-WRONG_OBJECT-001/spec_rev_7.md",
+          "text": "# 合成规格 REV-7  - 产品：精密连接器（合成） - 参数：针脚长度 - 名义值：10.00 mm - 公差：±0.05 mm - 合格范围：9.95–10.05 mm - 生效日期：2026-08-01 - 超出公差时不得直接放行。 - 本文件为 QualityTrace 8D 合成资料，不是真实企业规格。"
+        },
+        {
+          "attributes": {
+            "calibration_valid_until": "2026-09-30",
+            "equipment_id": "CMM-DEMO-03",
+            "measured": 10.15,
+            "out_of_spec": 2,
+            "readings": [
+              9.97,
+              10.03,
+              10.14,
+              10.15,
+              10.03
+            ],
+            "sample_size": 5,
+            "unit": "mm"
+          },
+          "evidence_id": "EV-INSPECTION",
+          "kind": "inspection",
+          "observed_at": "2026-08-21T10:15:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-003"
+          ],
+          "source": "data/generated/evidence/QT-WRONG_OBJECT-001/inspection_report.csv",
+          "text": "合成来料检验共抽检 5 件，读数为 9.97, 10.03, 10.14, 10.15, 10.03 mm；其中 2 件超出 9.95–10.05 mm。设备 CMM-DEMO-03 的合成校准有效期至 2026-09-30。"
+        },
+        {
+          "attributes": {
+            "claim_status": "unverified_supplier_statement",
+            "lot_id": "LOT-20260821-A",
+            "response_sla_hours": 48,
+            "target_revision": "REV-7",
+            "tooling_revision": "REV-6"
+          },
+          "evidence_id": "EV-SUPPLIER",
+          "kind": "supplier_response",
+          "observed_at": "2026-08-21T15:20:00+08:00",
+          "policy_refs": [
+            "QT-POL-002",
+            "QT-POL-004"
+          ],
+          "source": "data/generated/evidence/QT-WRONG_OBJECT-001/supplier_reply.txt",
+          "text": "合成供应商回复：LOT-20260821-A 仍沿用 REV-6 工装，尚未完成 REV-7 切换；将在 48 小时内补充纠正措施。"
+        },
+        {
+          "attributes": {
+            "equipment_id": "CMM-DEMO-03",
+            "lot_id": "LOT-20260821-A",
+            "out_of_spec": 0,
+            "readings": [
+              10.01,
+              10.0,
+              9.99,
+              9.98,
+              10.0
+            ],
+            "sample_size": 5,
+            "spec_revision": "REV-7",
+            "unit": "mm"
+          },
+          "evidence_id": "EV-EFFECTIVENESS",
+          "kind": "effectiveness",
+          "observed_at": "2026-08-24T14:00:00+08:00",
+          "policy_refs": [
+            "QT-POL-001",
+            "QT-POL-006"
+          ],
+          "source": "data/generated/evidence/QT-WRONG_OBJECT-001/reinspection_report.csv",
+          "text": "合成纠正后复检共 5 件，读数为 10.01, 10.00, 9.99, 9.98, 10.00 mm；超规格 0 件。"
+        }
+      ],
+      "flags": {
+        "expected_lot_id": "LOT-20260821-A",
+        "expected_status_after_first_run": "blocked"
+      },
+      "generator_version": "1.0.0",
+      "lot_id": "LOT-20260821-A",
+      "measured_value": 10.15,
+      "product": "精密连接器（合成）",
+      "required_value": 10.0,
+      "scenario": "inbound_spec_deviation",
+      "spec_name": "针脚长度",
+      "supplier_id": "SUP-DEMO-017",
+      "unit": "mm"
+    }
+  },
+  "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+  "generator_version": "1.0.0",
+  "policy_set_id": "QT-POLICY-DEMO-20260821-A",
+  "schema_version": 1,
+  "seed": 20260821
+}

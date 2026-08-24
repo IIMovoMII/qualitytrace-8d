@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/qualitytrace/case.schema.json",
+  "title": "QualityTrace 8D Synthetic Case",
+  "type": "object",
+  "required": [
+    "case_id",
+    "dataset_id",
+    "generator_version",
+    "scenario",
+    "data_origin",
+    "lot_id",
+    "supplier_id",
+    "product",
+    "spec_name",
+    "required_value",
+    "measured_value",
+    "unit",
+    "detection_stage",
+    "evidence",
+    "flags"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^QT-[A-Z_]+-[0-9]{3}$"},
+    "dataset_id": {"const": "QT8D-SYNTHETIC-20260821-A"},
+    "generator_version": {"const": "1.0.0"},
+    "scenario": {"const": "inbound_spec_deviation"},
+    "data_origin": {"const": "synthetic_demo"},
+    "lot_id": {"type": "string"},
+    "supplier_id": {"type": "string"},
+    "product": {"type": "string"},
+    "spec_name": {"type": "string"},
+    "required_value": {"type": "number"},
+    "measured_value": {"type": "number"},
+    "unit": {"type": "string"},
+    "detection_stage": {"const": "incoming_inspection"},
+    "evidence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidence"}
+    },
+    "flags": {"type": "object"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "required": ["evidence_id", "kind", "source", "text", "policy_refs", "attributes"],
+      "properties": {
+        "evidence_id": {"type": "string"},
+        "kind": {"enum": ["inspection", "specification", "supplier_response", "batch", "effectiveness"]},
+        "source": {"type": "string", "pattern": "^data/generated/evidence/"},
+        "text": {"type": "string", "minLength": 1},
+        "observed_at": {"type": ["string", "null"]},
+        "policy_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "pattern": "^QT-POL-[0-9]{3}$"}
+        },
+        "attributes": {"type": "object"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

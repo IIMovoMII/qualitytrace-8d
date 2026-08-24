@@ -1,0 +1,6 @@
+sample_index,reading_mm,status
+1,9.97,accepted
+2,10.03,accepted
+3,10.14,rejected
+4,10.15,rejected
+5,10.03,accepted

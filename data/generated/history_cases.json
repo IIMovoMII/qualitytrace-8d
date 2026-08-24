@@ -1,0 +1,54 @@
+{
+  "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+  "history": [
+    {
+      "action": "补齐换型清单、锁定旧工装并按新规格复检。",
+      "confirmed_root_cause": "工装切换清单未覆盖该产品族。",
+      "data_origin": "synthetic_demo",
+      "effectiveness": "5 件复检均在规格内并由质量负责人确认。",
+      "history_id": "QT-HIST-001",
+      "key_evidence": [
+        "规格生效日期早于收货日期",
+        "换型记录仍为旧版本",
+        "有效设备复测仍超上限"
+      ],
+      "pattern": "old_tooling_after_spec_change",
+      "problem": "合成历史批次在新规格生效后仍使用旧工装，尺寸出现高侧偏差。",
+      "role": "confirming_analogue",
+      "use_limit": "只能提出检查方向，不能证明当前案件根因。"
+    },
+    {
+      "action": "停用过期设备、复测受影响批次并补充校准到期提醒。",
+      "confirmed_root_cause": "测量系统失效造成误报，产品经有效设备复测合格。",
+      "data_origin": "synthetic_demo",
+      "effectiveness": "受影响批次完成复测，未确认产品规格偏差。",
+      "history_id": "QT-HIST-002",
+      "key_evidence": [
+        "校准有效期早于检验日期",
+        "两台设备结果不一致",
+        "有效设备复测全部合格"
+      ],
+      "pattern": "expired_calibration_false_alarm",
+      "problem": "合成历史批次初测超差，但检测设备校准已过期。",
+      "role": "alternative_cause",
+      "use_limit": "用于提醒检查测量系统；当前案件设备校准有效，因此不能直接套用。"
+    },
+    {
+      "action": "阻断跨批次引用并要求重新采集目标对象证据。",
+      "confirmed_root_cause": "扫码后人工复制批次号时发生对象串联。",
+      "data_origin": "synthetic_demo",
+      "effectiveness": "对象校验阻止了错误批次的后续措施创建。",
+      "history_id": "QT-HIST-003",
+      "key_evidence": [
+        "批次号不一致",
+        "供应商号不一致",
+        "目标批次缺少自己的检验记录"
+      ],
+      "pattern": "mixed_lot_object_mismatch",
+      "problem": "合成历史调查把相邻批次的检验记录错误绑定到目标案件。",
+      "role": "object_boundary_warning",
+      "use_limit": "只用于对象一致性门禁，不参与当前根因投票。"
+    }
+  ],
+  "schema_version": 1
+}

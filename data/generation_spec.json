@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+  "generator_version": "1.0.0",
+  "seed": 20260821,
+  "reference_date": "2026-08-21",
+  "origin": "synthetic_demo",
+  "scenario": "inbound_spec_deviation",
+  "not_real_customer_data": true,
+  "base_case": {
+    "case_sequence": 1,
+    "site_id": "SITE-DEMO-01",
+    "lot_id": "LOT-20260821-A",
+    "supplier_id": "SUP-DEMO-017",
+    "product": "精密连接器（合成）",
+    "spec_name": "针脚长度",
+    "unit": "mm",
+    "required_value": 10.0,
+    "tolerance": 0.05,
+    "spec_revision": "REV-7",
+    "previous_spec_revision": "REV-6",
+    "spec_effective_date": "2026-08-01",
+    "receipt_date": "2026-08-21",
+    "inspection_equipment": "CMM-DEMO-03",
+    "calibration_valid_until": "2026-09-30",
+    "initial_sample_size": 5,
+    "initial_in_spec_ratio": 0.6,
+    "initial_in_spec_band_of_tolerance": 0.6,
+    "initial_high_anomaly_band_of_tolerance": [
+      2.4,
+      3.8
+    ],
+    "effectiveness_sample_size": 5,
+    "effectiveness_band_of_tolerance": 0.4,
+    "supplier_response_sla_hours": 48
+  },
+  "variants": [
+    {
+      "kind": "complete",
+      "mutation": "none",
+      "expected_status_after_first_run": "awaiting_action_approval"
+    },
+    {
+      "kind": "missing_evidence",
+      "mutation": "remove_exactly_EV-SUPPLIER",
+      "expected_status_after_first_run": "awaiting_evidence"
+    },
+    {
+      "kind": "conflict",
+      "mutation": "add_EV-CONFLICT_with_opposite_tooling_revision",
+      "expected_status_after_first_run": "blocked"
+    },
+    {
+      "kind": "wrong_object",
+      "mutation": "replace_only_EV-BATCH_object_identifiers",
+      "expected_status_after_first_run": "blocked"
+    },
+    {
+      "kind": "tool_failure_recovery",
+      "mutation": "fail_first_read_call_then_return_unchanged_evidence",
+      "expected_status_after_first_run": "awaiting_action_approval"
+    }
+  ],
+  "history_patterns": [
+    {
+      "history_id": "QT-HIST-001",
+      "pattern": "old_tooling_after_spec_change",
+      "role": "confirming_analogue"
+    },
+    {
+      "history_id": "QT-HIST-002",
+      "pattern": "expired_calibration_false_alarm",
+      "role": "alternative_cause"
+    },
+    {
+      "history_id": "QT-HIST-003",
+      "pattern": "mixed_lot_object_mismatch",
+      "role": "object_boundary_warning"
+    }
+  ],
+  "generation_contract": {
+    "initial_reading_rule": "generate 3 readings inside nominal +/- 0.6*tolerance and 2 readings above nominal + [2.4,3.8]*tolerance",
+    "effectiveness_reading_rule": "generate 5 readings inside nominal +/- 0.4*tolerance",
+    "out_of_spec_rule": "a reading is out of specification iff value < nominal-tolerance or value > nominal+tolerance",
+    "variant_isolation_rule": "each negative variant changes only the mutation named in variants",
+    "history_use_rule": "history is background evidence only and never proves the current case root cause",
+    "provenance_rule": "every evidence unit resolves to a generated file, policy references resolve to the local registry, and every generated file is hashed in the manifest",
+    "retry_rule": "only the injected read-tool failure may be retried; business failures are retained",
+    "privacy_rule": "all names and identifiers are fictional and no source record is copied from a company"
+  }
+}

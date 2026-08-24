@@ -1,0 +1,178 @@
+{
+  "case_count": 5,
+  "dataset_id": "QT8D-SYNTHETIC-20260821-A",
+  "evidence_file_count": 25,
+  "generated_files": [
+    {
+      "path": "data/generated/cases.json",
+      "sha256": "9b7e3a3650d751441c7eee727fe92ee76079304e457ed19da5b6ebb7a07ffcfd"
+    },
+    {
+      "path": "data/generated/evidence/QT-COMPLETE-001/batch_record.json",
+      "sha256": "d890b2c3e6ece170124e176bc4f328691a58bf50d20a02d74b324f7d07824033"
+    },
+    {
+      "path": "data/generated/evidence/QT-COMPLETE-001/inspection_report.csv",
+      "sha256": "590e203a510319e8af6fd50fb6e8e8734ca86dbf37bc7f3719a959055b8a8795"
+    },
+    {
+      "path": "data/generated/evidence/QT-COMPLETE-001/reinspection_report.csv",
+      "sha256": "31add88c4d7c03fd1da356b22f6855aaa74c19b818ab4fbf96fdc9eaf8245d45"
+    },
+    {
+      "path": "data/generated/evidence/QT-COMPLETE-001/spec_rev_7.md",
+      "sha256": "a5a702dbd11d60312bfdb7143c681087e347e6152c480015d59d6ce7c89d68a2"
+    },
+    {
+      "path": "data/generated/evidence/QT-COMPLETE-001/supplier_reply.txt",
+      "sha256": "1af31a0135c475620cfcc3af2bc87e51a69e8e664504ee620097b1d8314783c7"
+    },
+    {
+      "path": "data/generated/evidence/QT-CONFLICT-001/batch_record.json",
+      "sha256": "d890b2c3e6ece170124e176bc4f328691a58bf50d20a02d74b324f7d07824033"
+    },
+    {
+      "path": "data/generated/evidence/QT-CONFLICT-001/inspection_report.csv",
+      "sha256": "590e203a510319e8af6fd50fb6e8e8734ca86dbf37bc7f3719a959055b8a8795"
+    },
+    {
+      "path": "data/generated/evidence/QT-CONFLICT-001/reinspection_report.csv",
+      "sha256": "31add88c4d7c03fd1da356b22f6855aaa74c19b818ab4fbf96fdc9eaf8245d45"
+    },
+    {
+      "path": "data/generated/evidence/QT-CONFLICT-001/spec_rev_7.md",
+      "sha256": "a5a702dbd11d60312bfdb7143c681087e347e6152c480015d59d6ce7c89d68a2"
+    },
+    {
+      "path": "data/generated/evidence/QT-CONFLICT-001/supplier_reply.txt",
+      "sha256": "1af31a0135c475620cfcc3af2bc87e51a69e8e664504ee620097b1d8314783c7"
+    },
+    {
+      "path": "data/generated/evidence/QT-CONFLICT-001/supplier_reply_v2.txt",
+      "sha256": "92282fb09c69dd134e4798fd5d61194538879c6eb55d76b55f1084bc05fd856a"
+    },
+    {
+      "path": "data/generated/evidence/QT-MISSING_EVIDENCE-001/batch_record.json",
+      "sha256": "d890b2c3e6ece170124e176bc4f328691a58bf50d20a02d74b324f7d07824033"
+    },
+    {
+      "path": "data/generated/evidence/QT-MISSING_EVIDENCE-001/inspection_report.csv",
+      "sha256": "590e203a510319e8af6fd50fb6e8e8734ca86dbf37bc7f3719a959055b8a8795"
+    },
+    {
+      "path": "data/generated/evidence/QT-MISSING_EVIDENCE-001/reinspection_report.csv",
+      "sha256": "31add88c4d7c03fd1da356b22f6855aaa74c19b818ab4fbf96fdc9eaf8245d45"
+    },
+    {
+      "path": "data/generated/evidence/QT-MISSING_EVIDENCE-001/spec_rev_7.md",
+      "sha256": "a5a702dbd11d60312bfdb7143c681087e347e6152c480015d59d6ce7c89d68a2"
+    },
+    {
+      "path": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/batch_record.json",
+      "sha256": "d890b2c3e6ece170124e176bc4f328691a58bf50d20a02d74b324f7d07824033"
+    },
+    {
+      "path": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/inspection_report.csv",
+      "sha256": "590e203a510319e8af6fd50fb6e8e8734ca86dbf37bc7f3719a959055b8a8795"
+    },
+    {
+      "path": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/reinspection_report.csv",
+      "sha256": "31add88c4d7c03fd1da356b22f6855aaa74c19b818ab4fbf96fdc9eaf8245d45"
+    },
+    {
+      "path": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/spec_rev_7.md",
+      "sha256": "a5a702dbd11d60312bfdb7143c681087e347e6152c480015d59d6ce7c89d68a2"
+    },
+    {
+      "path": "data/generated/evidence/QT-TOOL_FAILURE_RECOVERY-001/supplier_reply.txt",
+      "sha256": "1af31a0135c475620cfcc3af2bc87e51a69e8e664504ee620097b1d8314783c7"
+    },
+    {
+      "path": "data/generated/evidence/QT-WRONG_OBJECT-001/batch_record.json",
+      "sha256": "969c4e7bba5f8dc28f8387fa0392ed75872b5130b9278da72e9272b87c8cb6d2"
+    },
+    {
+      "path": "data/generated/evidence/QT-WRONG_OBJECT-001/inspection_report.csv",
+      "sha256": "590e203a510319e8af6fd50fb6e8e8734ca86dbf37bc7f3719a959055b8a8795"
+    },
+    {
+      "path": "data/generated/evidence/QT-WRONG_OBJECT-001/reinspection_report.csv",
+      "sha256": "31add88c4d7c03fd1da356b22f6855aaa74c19b818ab4fbf96fdc9eaf8245d45"
+    },
+    {
+      "path": "data/generated/evidence/QT-WRONG_OBJECT-001/spec_rev_7.md",
+      "sha256": "a5a702dbd11d60312bfdb7143c681087e347e6152c480015d59d6ce7c89d68a2"
+    },
+    {
+      "path": "data/generated/evidence/QT-WRONG_OBJECT-001/supplier_reply.txt",
+      "sha256": "1af31a0135c475620cfcc3af2bc87e51a69e8e664504ee620097b1d8314783c7"
+    },
+    {
+      "path": "data/generated/history_cases.json",
+      "sha256": "90e5a6381f229de97d6a8bb7f535bfa66dcf6bff45d684eaba8b0b78e14011e0"
+    }
+  ],
+  "generation_contract": {
+    "effectiveness_reading_rule": "generate 5 readings inside nominal +/- 0.4*tolerance",
+    "history_use_rule": "history is background evidence only and never proves the current case root cause",
+    "initial_reading_rule": "generate 3 readings inside nominal +/- 0.6*tolerance and 2 readings above nominal + [2.4,3.8]*tolerance",
+    "out_of_spec_rule": "a reading is out of specification iff value < nominal-tolerance or value > nominal+tolerance",
+    "privacy_rule": "all names and identifiers are fictional and no source record is copied from a company",
+    "provenance_rule": "every evidence unit resolves to a generated file, policy references resolve to the local registry, and every generated file is hashed in the manifest",
+    "retry_rule": "only the injected read-tool failure may be retried; business failures are retained",
+    "variant_isolation_rule": "each negative variant changes only the mutation named in variants"
+  },
+  "generator_version": "1.0.0",
+  "history_case_count": 3,
+  "inputs": [
+    {
+      "path": "data/generation_spec.json",
+      "sha256": "2c6dd6e00b35935a3db3e7c25e404bb1862dea252c328fe83a3268ecb16bc9a6"
+    },
+    {
+      "path": "data/policies/QT-POL-001_incoming_inspection.md",
+      "sha256": "22d57790fc4abe81e39bd8b87c4fd5e558d9a8bb9cc94b2b1fec4dc3d6eb6bc7"
+    },
+    {
+      "path": "data/policies/QT-POL-002_spec_change_control.md",
+      "sha256": "2e7220133748a09fe0673dbe211a37e299dfb700f91be022a380a14dd4abf7bf"
+    },
+    {
+      "path": "data/policies/QT-POL-003_nonconformance_containment.md",
+      "sha256": "08f7eaa390902e225668a472c58c581ca4989fc8b77dca4ccef572fe621e5591"
+    },
+    {
+      "path": "data/policies/QT-POL-004_supplier_corrective_action.md",
+      "sha256": "5daf297822e343bfcfdaef82ba4c518c201ab5ba4c33714739fcc7cedfff1c2e"
+    },
+    {
+      "path": "data/policies/QT-POL-005_approval_matrix.md",
+      "sha256": "1800446e6f799704583abbf7a3106ae2ad94acf4741af48276a8466c92037aa3"
+    },
+    {
+      "path": "data/policies/QT-POL-006_effectiveness_and_closure.md",
+      "sha256": "06af25ff4b114397c1313e68f8b11fd9d1d7d04741e2d76e33a875bee2a49e46"
+    },
+    {
+      "path": "data/rule_registry.json",
+      "sha256": "ed92db6c2e0db01b67e7920af63b4cf3f2a1a4c5406319de32c0d71b67b7c2df"
+    },
+    {
+      "path": "data/schemas/qualitytrace_case.schema.json",
+      "sha256": "1e8f19674815ac64cc72cd221a8f7983f1fd1fa0f3ffb5c8ec73c555c6d5a37d"
+    },
+    {
+      "path": "data/source_register.json",
+      "sha256": "2060bcbabce93e33746dba0ee931f749cdf3e5ca0280defa8d038d562556abf2"
+    },
+    {
+      "path": "src/qualitytrace/data_factory.py",
+      "sha256": "45cfdeadcdb7875fe9856f64091f2fb515c97fa92ccc631ef6dbb4c623895162"
+    }
+  ],
+  "not_production_deployment": true,
+  "not_real_customer_data": true,
+  "origin": "synthetic_demo",
+  "schema_version": 2,
+  "seed": 20260821
+}
